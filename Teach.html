@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Let's Learn</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #7bd9fb;
+            margin: 0;
+            padding: 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Background image with blur effect */
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('bg.png');
+            background-size: cover;
+            background-position: center;
+            filter: blur(8px); /* Apply blur */
+            z-index: -1; /* Send the background behind the content */
+        }
+
+        /* Stylish Heading */
+        h1 {
+            color: #ffffff;
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.6); /* Add shadow for better visibility */
+            padding: 20px;
+            background: rgba(169, 198, 229, 0.6); /* Add a semi-transparent background */
+            border-radius: 10px; /* Smooth corners */
+            display: inline-block;
+            text-align: center;
+            width: 100%; /* Make the heading span across the full width */
+            box-sizing: border-box;
+        }
+
+        .container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: rgba(255, 255, 255, 0.85); /* Semi-transparent background */
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            transition: transform 0.3s;
+            overflow: hidden;
+            text-align: center;
+            padding: 20px;
+            z-index: 1; /* Make sure content is above the blurred background */
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .card h2 {
+            color: #007BFF;
+            margin: 20px 0;
+        }
+
+        .card p {
+            padding: 0 20px;
+            color: #555;
+        }
+
+        .card a {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .card a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Master the Language of Hands</h1>
+
+    <div class="container">
+        <div class="card">
+            <img src="abcd.png" alt="Alphabets">
+            <h2>Alphabets</h2>
+            <p>Learn the sign language for each letter of the alphabet.</p>
+            <a href="abcd.html">Explore Alphabets</a>
+        </div>
+
+        <div class="card">
+            <img src="greet.png" alt="Greetings">
+            <h2>Greetings</h2>
+            <p>Understand how to greet people in sign language.</p>
+            <a href="test.html">Explore Greetings</a>
+        </div>
+
+        <div class="card">
+            <img src="actionimg.png" alt="Actions">
+            <h2>Actions</h2>
+            <p>Discover common actions expressed in sign language.</p>
+            <a href="Verbs.html">Explore Actions</a>
+        </div>
+    </div>
+
+</body>
+</html>

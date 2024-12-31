@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Language Quiz</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #d6f0ff, #f0f8ff);
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .question-container {
+            background-color: #fff;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 450px;
+            text-align: center;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .option {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .option:hover {
+            background-color: #0056b3;
+            transform: translateY(-3px);
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .btn-next {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .score {
+            margin-bottom: 20px;
+            font-size: 1.1em;
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px;
+            border-radius: 10px;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Sign Language Quiz 🤟</h1>
+    <div class="score" id="scoreDisplay">Score: 0 / 5</div>
+    <div class="question-container" id="quizContainer">
+        <img id="signImage" src="" alt="Sign Language" style="max-width: 100%; height: auto; border-radius: 10px;">
+        <div class="options" id="optionsContainer"></div>
+        <div class="result" id="result"></div>
+        <button class="btn btn-primary btn-next" id="nextBtn">Next Question ➡️</button>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        const signsFolder = 'signs/'; // Folder containing the images
+        const alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
+        let currentQuestion = {};
+        let score = 0;
+        let totalQuestions = 5;
+        let questionsAsked = 0;
+
+        const signImage = document.getElementById('signImage');
+        const optionsContainer = document.getElementById('optionsContainer');
+        const resultDiv = document.getElementById('result');
+        const nextBtn = document.getElementById('nextBtn');
+        const scoreDisplay = document.getElementById('scoreDisplay');
+
+        function generateQuestion() {
+            // Pick a random letter
+            const correctLetter = alphabet[Math.floor(Math.random() * alphabet.length)];
+            const incorrectOptions = alphabet.filter(letter => letter !== correctLetter);
+
+            // Randomly pick 3 incorrect options
+            const shuffledOptions = [...incorrectOptions].sort(() => 0.5 - Math.random()).slice(0, 3);
+            shuffledOptions.push(correctLetter);
+
+            // Shuffle the options
+            shuffledOptions.sort(() => 0.5 - Math.random());
+
+            // Set the current question details
+            currentQuestion = {
+                correct: correctLetter,
+                options: shuffledOptions
+            };
+
+            // Update the UI with the new question
+            signImage.src = `${signsFolder}${correctLetter}.png`;
+            optionsContainer.innerHTML = '';
+            shuffledOptions.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'option';
+                button.textContent = option.toUpperCase();
+                button.onclick = () => checkAnswer(option);
+                optionsContainer.appendChild(button);
+            });
+
+            resultDiv.textContent = '';
+            nextBtn.style.display = 'none';
+        }
+
+        function checkAnswer(selectedOption) {
+            if (selectedOption === currentQuestion.correct) {
+                score++;
+                resultDiv.innerHTML = 'Correct! 🎉 Great job!';
+                resultDiv.style.color = 'green';
+            } else {
+                resultDiv.innerHTML = `Wrong! 😢 The correct answer was <strong>${currentQuestion.correct.toUpperCase()}</strong>.`;
+                resultDiv.style.color = 'red';
+            }
+
+            scoreDisplay.textContent = `Score: ${score} / ${totalQuestions}`;
+            nextBtn.style.display = 'block';
+        }
+
+        function nextQuestion() {
+            questionsAsked++;
+            if (questionsAsked < totalQuestions) {
+                generateQuestion();
+            } else {
+                showFinalScore();
+            }
+        }
+
+        function showFinalScore() {
+            signImage.style.display = 'none';
+            optionsContainer.innerHTML = '';
+            let finalMessage = `Your score is ${score} out of ${totalQuestions}. `;
+            if (score === totalQuestions) {
+                finalMessage += "Amazing! 🌟 You're a sign language star!";
+            } else if (score >= totalQuestions / 2) {
+                finalMessage += "Well done! 👍 Keep practicing!";
+            } else {
+                finalMessage += "Don't worry! 😊 Practice makes perfect!";
+            }
+            resultDiv.innerHTML = finalMessage;
+            nextBtn.style.display = 'none';
+        }
+
+        // Start the quiz with the first question
+        generateQuestion();
+        nextBtn.addEventListener('click', nextQuestion);
+    </script>
+</body>
+</html>

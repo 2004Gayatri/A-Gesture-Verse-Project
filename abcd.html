@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Language Alphabet</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            padding: 50px;
+            background: linear-gradient(135deg, #74ebd5 0%, #acb6e5 100%);
+            color: #333;
+        }
+
+        h1 {
+            font-size: 3em;
+            font-weight: bold;
+            margin-bottom: 40px;
+            color: #fff;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        #display {
+            font-size: 2.5em;
+            margin-top: 20px;
+            color: #007BFF;
+            font-weight: bold;
+        }
+
+        #signImage {
+            width: 300px; /* Adjusted the width for better visibility */
+            height: auto; /* Maintain aspect ratio */
+            margin: 20px auto;
+            display: block;
+            border-radius: 10px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .icon-text {
+            margin-top: 30px;
+            color: #fff;
+            font-size: 1.2em;
+        }
+
+        .icon-text i {
+            font-size: 1.5em;
+            color: #ffdd57;
+        }
+
+        /* Add some animations for the image */
+        #signImage.show {
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Press a Key to See the Sign Language Alphabet</h1>
+        <div id="display" class="mb-4">Press any key...</div>
+        <img id="signImage" src="" alt="Sign Language Alphabet" style="display: none;" class="img-fluid">
+        
+        <div class="icon-text">
+            <p>Start Learning <i class="fas fa-hand-paper"></i></p>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS and dependencies (optional for Bootstrap's interactive components) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="teach.js"></script>
+
+</body>
+</html>

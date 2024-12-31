@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Speech Recognition</title>
+</head>
+<body>
+    <h1>Signify is getting built!</h1>
+    <p>Please wait! Work in Progress 😃</p>
+    <h2>Speech Recognition</h2>
+    <button id="start-recording">Start Recording</button>
+    <p id="recognized-text">Text will appear here...</p>
+
+    <script>
+        document.getElementById('start-recording').addEventListener('click', async () => {
+            const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            const mediaRecorder = new MediaRecorder(stream);
+
+            mediaRecorder.ondataavailable = async (event) => {
+                const formData = new FormData();
+                formData.append('file', event.data, 'audio.wav');
+
+                try {
+                    const response = await fetch('http://localhost:5000/recognize', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    const data = await response.json();
+                    document.getElementById('recognized-text').textContent = data.text || data.error;
+                } catch (error) {
+                    console.error('Error:', error);
+                }
+            };
+
+            mediaRecorder.start();
+            setTimeout(() => mediaRecorder.stop(), 5000); // Record for 5 seconds
+        });
+    </script>
+</body>
+</html>
